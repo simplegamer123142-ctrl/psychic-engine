@@ -12,21 +12,28 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background-color: #f5f5f5; /* Light grey background for the page */
+            background-color: #e0e0e0; /* Slightly darker background to contrast the centered game */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             touch-action: none; /* Prevent scrolling on mobile */
             height: 100vh;
         }
 
         #game-area {
-            /* Maximized for desktop and screen size */
+            /* Responsive Sizing (100vw/vh) remains for small screens */
             width: 100vw;
             height: 100vh;
             
+            /* Max Constraints for centering on large screens, preventing infinite stretch */
+            max-width: 1000px; 
+            max-height: 800px;
+            
             position: relative;
             
-            border: none; /* Remove border when full screen */
-            box-shadow: none;
+            /* Added frame aesthetics */
+            border: 4px solid #424242; /* Dark border */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
             overflow: hidden; /* Keep game elements inside */
             background-color: #f0f8ff; /* Sky for the playing field */
             cursor: crosshair;
@@ -265,7 +272,7 @@
         highScoreBoard.innerText = "Best: " + highScore;
 
         // Physics Variables
-        const baseGravity = 0.6;
+        const baseGravity = 0.8; // Faster fall speed
         let gravity = baseGravity; 
         let ballX = 0; 
         let ballY = 0; 
@@ -276,7 +283,7 @@
         let catX = 0;
         let catY = 0; 
         let targetX = null;
-        let speed = 12; 
+        let speed = 15; // Faster cat movement
         let isMoving = false;
         let facingRight = true;
         let floorY = 0;
@@ -432,11 +439,11 @@
             if (distance < 60) {
                 // Collision!
                 if (ballVy > -5) { 
-                    // Bounce up (scale force with gravity slightly so it remains playable)
-                    ballVy = -16 - (gravity - 0.6) * 2; 
+                    // Bounce up 
+                    ballVy = -19 - (gravity - 0.8) * 2; 
                     
-                    // Deflect horizontally based on hit location
-                    ballVx = distX * 0.2;
+                    // Deflect horizontally based on hit location - INCREASED COEFFICIENT
+                    ballVx = distX * 0.3; // Changed from 0.2 to 0.3
                     
                     // Prevent sticking by forcing ball above cat
                     ballY = catHeadY - BALL_SIZE - 5; 
@@ -459,7 +466,7 @@
                 ballY = floorHitY;
                 
                 // 2. Use a fixed, moderate upward velocity for a predictable bounce (Was a multiplier)
-                ballVy = -10; 
+                ballVy = -13; 
                 
                 // 3. Set horizontal velocity to zero immediately, making the ball perfectly reachable. (Was 0.1 multiplier)
                 ballVx = 0; 

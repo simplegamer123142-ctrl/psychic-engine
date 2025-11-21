@@ -9,8 +9,8 @@
         body {
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centers horizontally */
+            align-items: center;    /* Centers vertically */
             overflow: hidden;
             background-color: #e0e0e0; /* Slightly darker background to contrast the centered game */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -41,6 +41,9 @@
             /* Visual Floor (20px high) */
             border-bottom: 20px solid;
             border-image: linear-gradient(to right, #4CAF50, #8BC34A) 1;
+            
+            /* NEW: Shift the game area slightly up and left from the center */
+            transform: translate(-5%, -5%); 
         }
 
         /* UI elements must be relative to the game area */
